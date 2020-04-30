@@ -24,7 +24,7 @@ export const BookDetail = ({ history }) => {
           id: uuid,
         },
       })
-      .then((resp) => setBook(resp.data))
+      .then((resp) => setBook(resp.data.book))
       .catch((err) => {
         console.error(err);
         setErrorMessage("Oh no! An unexpected error occurred.");
@@ -47,30 +47,22 @@ export const BookDetail = ({ history }) => {
       <h2>Book Details</h2>
       {/* Checking if books contains anything- we don't want to get an error for trying 
       to render something that doesn't exist from the initialized empty books array*/}
-      {typeof book.book !== "undefined" && (
+      {book && (
         <Fragment>
-          <p>{book.book.title}</p>
-          {typeof book.book.imageLinks !== "undefined" && (
-            <img src={book.book.imageLinks.thumbnail} alt={book.book.title} />
+          <p>{book.title}</p>
+          {book.imageLinks && (
+            <img src={book.imageLinks.thumbnail} alt={book.title} />
           )}
-          {book.book.authors.length > 0 &&
-            book.book.authors.map((author, index) => {
+          {book.authors &&
+            book.authors.map((author, index) => {
               return <p key={index}>{author}</p>;
             })}
-          {typeof book.book.description !== "undefined" && (
-            <p>{book.book.description}</p>
-          )}
-          {typeof book.book.publisher !== "undefined" && (
-            <p>{book.book.publisher}</p>
-          )}
-          {typeof book.book.publishedDate !== "undefined" && (
-            <p>Published on {book.book.publishedDate}</p>
-          )}
+          {book.description && <p>{book.description}</p>}
+          {book.publisher && <p>{book.publisher}</p>}
+          {book.publishedDate && <p>Published on {book.publishedDate}</p>}
           {/* eventually want an object to associate shelf variable name and shelf in english i.e. 
           {currentlyReading : "currently reading"} */}
-          {typeof book.book.shelf !== "undefined" && (
-            <p>Currently on shelf: {book.book.shelf}</p>
-          )}
+          {book.shelf && <p>Currently on shelf: {book.shelf}</p>}
         </Fragment>
       )}
       {errorMessage && (

@@ -67,30 +67,22 @@ export const Search = ({ history }) => {
       </form>
       <h2>Results</h2>
       {/* is there a better way of checking for no match? Would using books.hasownproperty(message) be easier to read?  More declarative? */}
-      {typeof books.message !== "undefined" &&
+      {books.message &&
         books.message.substring(0, 17) === "No books matching" && (
           <p>There are no books matching your request.</p>
         )}
-      {typeof books.books !== "undefined" &&
+      {books.books &&
         books.books.map((book) => {
           const id = `book-${book.id}`;
-          // Is there a good way to conditionally define thumbnail constant? Is
-          // it even worth it in this case where you are creating a variable and
-          // only using it once? (I lean towards no in this use case)
-          //const title = `${book.title}`;
-          // const thumbnail = `${book.imageLinks.smallThumbnail}`;
           return (
             <div key={id}>
-              {/* Here we are technically assuming title exists. Bad practice? */}
               <Link to={`/book/${book.id}`}>{book.title}</Link>
-              {typeof book.imageLinks !== "undefined" && (
+              {book.imageLinks && (
                 <Link to={`/book/${book.id}`}>
                   <img src={book.imageLinks.thumbnail} alt={book.title} />
                 </Link>
               )}
-              {/* How can I test to ensure that conditional rendering works? i.e. is there a good way to see what the
-              data looks like when there is no author? Is there a way to tell whether it will be an empty array or just missing? */}
-              {typeof book.authors[0] !== "undefined" &&
+              {book.authors &&
                 book.authors.map((author) => {
                   return <p>{author}</p>;
                 })}

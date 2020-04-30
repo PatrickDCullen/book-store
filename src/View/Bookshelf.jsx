@@ -22,12 +22,13 @@ export const Bookshelf = ({ history }) => {
           id: uuid,
         },
       })
-      .then((resp) => setBooks(resp.data))
+      .then((resp) => resp.data.books && setBooks(resp.data.books))
+      .then(console.log(books))
       .catch((err) => {
         console.error(err);
         setErrorMessage("Oh no! An unexpected error occurred.");
       });
-  }, [uuid]);
+  }, []);
 
   return (
     <div className="container mt-2 mb-5">
@@ -46,13 +47,13 @@ export const Bookshelf = ({ history }) => {
       <h2>Want To Read</h2>
       {/* Checking if books contains anything- we don't want to get an error for trying 
       to render something that doesn't exist from the initialized empty books array*/}
-      {typeof books.books !== "undefined" &&
-        books.books.wantToRead.map((book) => {
+      {books.wantToRead &&
+        books.wantToRead.map((book) => {
           const id = `book-${book.id}`;
           return (
             <div key={id}>
               <Link to={`/book/${book.id}`}>{book.title}</Link>
-              {typeof book.imageLinks !== "undefined" && (
+              {book.imageLinks && (
                 <Link to={`/book/${book.id}`}>
                   <img src={book.imageLinks.thumbnail} alt={book.title} />
                 </Link>
@@ -62,13 +63,13 @@ export const Bookshelf = ({ history }) => {
           );
         })}
       <h2>Currently Reading</h2>
-      {typeof books.books !== "undefined" &&
-        books.books.currentlyReading.map((book) => {
+      {books.currentlyReading &&
+        books.currentlyReading.map((book) => {
           const id = `book-${book.id}`;
           return (
             <div key={id}>
               <Link to={`/book/${book.id}`}>{book.title}</Link>
-              {typeof book.imageLinks !== "undefined" && (
+              {book.imageLinks && (
                 <Link to={`/book/${book.id}`}>
                   <img src={book.imageLinks.thumbnail} alt={book.title} />
                 </Link>
@@ -78,13 +79,13 @@ export const Bookshelf = ({ history }) => {
           );
         })}
       <h2>Read</h2>
-      {typeof books.books !== "undefined" &&
-        books.books.read.map((book) => {
+      {books.read &&
+        books.read.map((book) => {
           const id = `book-${book.id}`;
           return (
             <div key={id}>
               <Link to={`/book/${book.id}`}>{book.title}</Link>
-              {typeof book.imageLinks !== "undefined" && (
+              {book.imageLinks && (
                 <Link to={`/book/${book.id}`}>
                   <img src={book.imageLinks.thumbnail} alt={book.title} />
                 </Link>
