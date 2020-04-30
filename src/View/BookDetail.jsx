@@ -6,6 +6,7 @@ export const BookDetail = ({ history }) => {
   const [book, setBook] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const bookIdUri = history.location.pathname;
+  const [shelfChangeUri, setShelfChangeUri] = useState("");
   /**
    * Getting the token (UUID) we stored in the Context API.
    */
@@ -29,7 +30,24 @@ export const BookDetail = ({ history }) => {
         console.error(err);
         setErrorMessage("Oh no! An unexpected error occurred.");
       });
-  }, [uuid, bookIdUri]);
+  }, [uuid, bookIdUri, shelfChangeUri]);
+
+  useEffect(() => {
+    /**
+     * The API should not give you back any books unless you are logged in.
+     * To prove that you are logged in, you must pass the token (UUID) in the API.
+     */
+    if (shelfChangeUri !== "")
+      axios
+        // for some reason this request didn't work with params like above get
+        // request so I just tacked query string onto the uri
+        .put(`http://localhost:7000/bookshelf${shelfChangeUri}?id=${uuid}`)
+        // .then((resp) => resp.data.books && setBook(resp.data.book))
+        .catch((err) => {
+          console.error(err);
+          setErrorMessage("Oh no! An unexpected error occurred.");
+        });
+  }, [shelfChangeUri]);
 
   return (
     <div className="container mt-2 mb-5">
@@ -62,7 +80,20 @@ export const BookDetail = ({ history }) => {
           {book.publishedDate && <p>Published on {book.publishedDate}</p>}
           {/* eventually want an object to associate shelf variable name and shelf in english i.e. 
           {currentlyReading : "currently reading"} */}
-          {book.shelf && <p>Currently on shelf: {book.shelf}</p>}
+          {/*  */}
+          <label htmlFor="shelf">Change shelf:</label>
+          <select
+            id="shelf"
+            name="shelf"
+            className="form-control"
+            value={book.shelf}
+            onChange={(e) => setShelfChangeUri(`/${book.id}/${e.target.value}`)}
+          >
+            <option value="wantToRead">Want To Read</option>
+            <option value="currentlyReading">Currently Reading</option>
+            <option value="read">Read</option>
+            <option value="none">None</option>
+          </select>
         </Fragment>
       )}
       {errorMessage && (
