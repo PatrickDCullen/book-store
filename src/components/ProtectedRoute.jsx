@@ -1,6 +1,7 @@
 import React, { useContext, Fragment } from "react";
 import { Route, Link, Redirect } from "react-router-dom";
 import { CookieContext } from "../Context/SessionContext";
+import { Nav, NavLink } from "reactstrap";
 
 /**
  * This will redirect the user to the login form if they haven't logged in.
@@ -21,8 +22,6 @@ export const ProtectedRoute = ({
 
   return (
     <Fragment>
-      <Link to="/bookshelf">Bookshelf</Link>
-      <Link to="/search"> Search</Link>
       <Route
         {...restOfPropsFromParent}
         render={(propsFromReactRouter) => {

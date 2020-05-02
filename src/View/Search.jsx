@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { CookieContext } from "../Context/SessionContext";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { Nav, NavLink, Media } from "reactstrap";
 
 export const Search = ({ history }) => {
   const [books, setBooks] = useState([]);
@@ -44,7 +45,14 @@ export const Search = ({ history }) => {
 
   return (
     <div className="container mt-2 mb-5">
-      <div className="d-flex justify-content-between">
+      <div className="d-flex justify-content-between mb-2">
+        <Nav>
+          <NavLink href="/bookshelf">Bookshelf</NavLink>
+          <NavLink disabled href="/search">
+            {" "}
+            Search
+          </NavLink>
+        </Nav>
         <button
           className="btn btn-primary"
           onClick={() => {
@@ -55,18 +63,17 @@ export const Search = ({ history }) => {
           Logout
         </button>
       </div>
-      <form>
-        <label>Search for books by title:</label>
+      <form className="mb-2">
         <input
           id="Search"
           name="Search"
           type="text"
           value={searchTerm}
           onChange={handleChange}
+          placeholder="Search for books by title"
         />
       </form>
       <h2>Results</h2>
-      {/* is there a better way of checking for no match? Would using books.hasownproperty(message) be easier to read?  More declarative? */}
       {books.message &&
         books.message.substring(0, 17) === "No books matching" && (
           <p>There are no books matching your request.</p>
@@ -75,18 +82,27 @@ export const Search = ({ history }) => {
         books.books.map((book) => {
           const id = `book-${book.id}`;
           return (
-            <div key={id}>
-              <Link to={`/book/${book.id}`}>{book.title}</Link>
-              {book.imageLinks && (
+            <Media>
+              <Media left href={`/book/${book.id}`}>
+                {book.imageLinks && (
+                  <Media
+                    object
+                    src={book.imageLinks.thumbnail}
+                    alt="the thumbnail didn't render"
+                    className="mb-2 mr-2"
+                  />
+                )}
+              </Media>
+              <Media body>
                 <Link to={`/book/${book.id}`}>
-                  <img src={book.imageLinks.thumbnail} alt={book.title} />
+                  <Media heading>{book.title}</Media>
                 </Link>
-              )}
-              {book.authors &&
-                book.authors.map((author) => {
-                  return <p>{author}</p>;
-                })}
-            </div>
+                {book.authors &&
+                  book.authors.map((author) => {
+                    return <p>{author}</p>;
+                  })}
+              </Media>
+            </Media>
           );
         })}
 

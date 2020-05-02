@@ -1,6 +1,7 @@
 import React, { useEffect, useState, Fragment, useContext } from "react";
 import { CookieContext } from "../Context/SessionContext";
 import axios from "axios";
+import { Nav, NavLink } from "reactstrap";
 
 export const BookDetail = ({ history }) => {
   const [book, setBook] = useState([]);
@@ -51,7 +52,11 @@ export const BookDetail = ({ history }) => {
 
   return (
     <div className="container mt-2 mb-5">
-      <div className="d-flex justify-content-between">
+      <div className="d-flex justify-content-between mb-2">
+        <Nav>
+          <NavLink href="/bookshelf">Bookshelf</NavLink>
+          <NavLink href="/search"> Search</NavLink>
+        </Nav>
         <button
           className="btn btn-primary"
           onClick={() => {

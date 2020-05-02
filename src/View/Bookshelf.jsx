@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { CookieContext } from "../Context/SessionContext";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { Nav, NavLink } from "reactstrap";
 
 export const Bookshelf = ({ history }) => {
   const [books, setBooks] = useState([]);
@@ -49,7 +50,13 @@ export const Bookshelf = ({ history }) => {
 
   return (
     <div className="container mt-2 mb-5">
-      <div className="d-flex justify-content-between">
+      <div className="d-flex justify-content-between mb-2">
+        <Nav>
+          <NavLink disabled href="/bookshelf">
+            Bookshelf
+          </NavLink>
+          <NavLink href="/search"> Search</NavLink>
+        </Nav>
         <button
           className="btn btn-primary"
           onClick={() => {
@@ -60,7 +67,6 @@ export const Bookshelf = ({ history }) => {
           Logout
         </button>
       </div>
-      <h1 className="h2">Your Bookshelf</h1>
       <h2>Want To Read</h2>
       {/* Checking if books contains anything- we don't want to get an error for trying 
       to render something that doesn't exist from the initialized empty books array*/}

@@ -52,15 +52,18 @@ function App({ history }) {
        * If the credentials are wrong, display an error message
        */
       setError(true);
-      setErrorMessage(error.response.data.message);
+      setErrorMessage("Did you use the credentials above to sign in?");
     }
   };
 
   return (
     <div className="App">
       <div>
-        <h1>Sign In</h1>
-        <form className="form-inline" onSubmit={handleSubmit}>
+        <h1 className="mb-4">Sign In</h1>
+        <form
+          className="form-inline justify-content-center mb-4"
+          onSubmit={handleSubmit}
+        >
           <div className="form-group">
             <label htmlFor="username" className="mr-2">
               Username
