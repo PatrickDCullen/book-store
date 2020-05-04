@@ -92,6 +92,14 @@ export const Search = ({ history }) => {
                     className="mb-2 mr-2"
                   />
                 )}
+                {!book.imageLinks && (
+                  <Media
+                    object
+                    src="https://via.placeholder.com/128x168"
+                    alt="the thumbnail didn't render"
+                    className="mb-2 mr-2"
+                  />
+                )}
               </Media>
               <Media body>
                 <Link to={`/book/${book.id}`}>
@@ -99,7 +107,7 @@ export const Search = ({ history }) => {
                 </Link>
                 {book.authors &&
                   book.authors.map((author) => {
-                    return <p>{author}</p>;
+                    return <p className="Authors">{author}</p>;
                   })}
               </Media>
             </Media>

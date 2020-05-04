@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment, useContext } from "react";
 import { CookieContext } from "../Context/SessionContext";
 import axios from "axios";
-import { Nav, NavLink } from "reactstrap";
+import { Nav, NavLink, Media } from "reactstrap";
 
 export const BookDetail = ({ history }) => {
   const [book, setBook] = useState([]);
@@ -67,38 +67,59 @@ export const BookDetail = ({ history }) => {
           Logout
         </button>
       </div>
-      <h2>Book Details</h2>
       {/* Checking if books contains anything- we don't want to get an error for trying 
       to render something that doesn't exist from the initialized empty books array*/}
       {book && (
         <Fragment>
-          <p>{book.title}</p>
-          {book.imageLinks && (
-            <img src={book.imageLinks.thumbnail} alt={book.title} />
-          )}
-          {book.authors &&
-            book.authors.map((author, index) => {
-              return <p key={index}>{author}</p>;
-            })}
-          {book.description && <p>{book.description}</p>}
-          {book.publisher && <p>{book.publisher}</p>}
-          {book.publishedDate && <p>Published on {book.publishedDate}</p>}
-          {/* eventually want an object to associate shelf variable name and shelf in english i.e. 
-          {currentlyReading : "currently reading"} */}
-          {/*  */}
-          <label htmlFor="shelf">Change shelf:</label>
-          <select
-            id="shelf"
-            name="shelf"
-            className="form-control"
-            value={book.shelf}
-            onChange={(e) => setShelfChangeUri(`/${book.id}/${e.target.value}`)}
-          >
-            <option value="wantToRead">Want To Read</option>
-            <option value="currentlyReading">Currently Reading</option>
-            <option value="read">Read</option>
-            <option value="none">None</option>
-          </select>
+          <h2 className="mb-2">{book.title}</h2>
+          <Media>
+            <Media left>
+              {book.imageLinks && (
+                <Media
+                  object
+                  src={book.imageLinks.thumbnail}
+                  alt="the thumbnail didn't render"
+                  className="mb-2 mr-2"
+                />
+              )}
+              {!book.imageLinks && (
+                <Media
+                  object
+                  src="https://via.placeholder.com/128x168"
+                  alt="the thumbnail didn't render"
+                  className="mb-2 mr-2"
+                />
+              )}
+            </Media>
+            <Media body>
+              {book.authors &&
+                book.authors.map((author, index) => {
+                  return (
+                    <p key={index} className="Authors">
+                      {author}
+                    </p>
+                  );
+                })}
+              {book.description && <p>{book.description}</p>}
+              {book.publisher && <p>{book.publisher}</p>}
+              {book.publishedDate && <p>Published on {book.publishedDate}</p>}
+              <label htmlFor="shelf">Change shelf:</label>
+              <select
+                id="shelf"
+                name="shelf"
+                className="form-control"
+                value={book.shelf}
+                onChange={(e) =>
+                  setShelfChangeUri(`/${book.id}/${e.target.value}`)
+                }
+              >
+                <option value="wantToRead">Want To Read</option>
+                <option value="currentlyReading">Currently Reading</option>
+                <option value="read">Read</option>
+                <option value="none">None</option>
+              </select>
+            </Media>
+          </Media>
         </Fragment>
       )}
       {errorMessage && (
