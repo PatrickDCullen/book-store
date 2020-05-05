@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { CookieContext } from "../Context/SessionContext";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Nav, NavLink } from "reactstrap";
+import { Nav, NavLink, Media } from "reactstrap";
 
 export const Bookshelf = ({ history }) => {
   const [books, setBooks] = useState([]);
@@ -75,27 +75,49 @@ export const Bookshelf = ({ history }) => {
           const id = `book-${book.id}`;
           return (
             <div key={id}>
-              <Link to={`/book/${book.id}`}>{book.title}</Link>
-              {book.imageLinks && (
-                <Link to={`/book/${book.id}`}>
-                  <img src={book.imageLinks.thumbnail} alt={book.title} />
-                </Link>
-              )}
-              <label htmlFor="shelf">Change shelf:</label>
-              <select
-                id="shelf"
-                name="shelf"
-                className="form-control"
-                value={book.shelf}
-                onChange={(e) =>
-                  setShelfChangeUri(`/${book.id}/${e.target.value}`)
-                }
-              >
-                <option value="wantToRead">Want To Read</option>
-                <option value="currentlyReading">Currently Reading</option>
-                <option value="read">Read</option>
-                <option value="none">Remove</option>
-              </select>
+              <Media>
+                <Media left href={`/book/${book.id}`}>
+                  {book.imageLinks && (
+                    <Media
+                      object
+                      src={book.imageLinks.thumbnail}
+                      alt="the thumbnail didn't render"
+                      className="mb-2 mr-2"
+                    />
+                  )}
+                  {!book.imageLinks && (
+                    <Media
+                      object
+                      src="https://via.placeholder.com/128x168"
+                      alt="the thumbnail didn't render"
+                      className="mb-2 mr-2"
+                    />
+                  )}
+                </Media>
+                <Media body>
+                  {book.title && (
+                    <h2>
+                      <Link to={`/book/${book.id}`}>{book.title}</Link>
+                    </h2>
+                  )}
+
+                  <label htmlFor="shelf">Change shelf:</label>
+                  <select
+                    id="shelf"
+                    name="shelf"
+                    className="form-control"
+                    value={book.shelf}
+                    onChange={(e) =>
+                      setShelfChangeUri(`/${book.id}/${e.target.value}`)
+                    }
+                  >
+                    <option value="wantToRead">Want To Read</option>
+                    <option value="currentlyReading">Currently Reading</option>
+                    <option value="read">Read</option>
+                    <option value="none">None</option>
+                  </select>
+                </Media>
+              </Media>
             </div>
           );
         })}
@@ -105,27 +127,49 @@ export const Bookshelf = ({ history }) => {
           const id = `book-${book.id}`;
           return (
             <div key={id}>
-              <Link to={`/book/${book.id}`}>{book.title}</Link>
-              {book.imageLinks && (
-                <Link to={`/book/${book.id}`}>
-                  <img src={book.imageLinks.thumbnail} alt={book.title} />
-                </Link>
-              )}
-              <label htmlFor="shelf">Change shelf:</label>
-              <select
-                id="shelf"
-                name="shelf"
-                className="form-control"
-                value={book.shelf}
-                onChange={(e) =>
-                  setShelfChangeUri(`/${book.id}/${e.target.value}`)
-                }
-              >
-                <option value="wantToRead">Want To Read</option>
-                <option value="currentlyReading">Currently Reading</option>
-                <option value="read">Read</option>
-                <option value="none">Remove</option>
-              </select>
+              <Media>
+                <Media left href={`/book/${book.id}`}>
+                  {book.imageLinks && (
+                    <Media
+                      object
+                      src={book.imageLinks.thumbnail}
+                      alt="the thumbnail didn't render"
+                      className="mb-2 mr-2"
+                    />
+                  )}
+                  {!book.imageLinks && (
+                    <Media
+                      object
+                      src="https://via.placeholder.com/128x168"
+                      alt="the thumbnail didn't render"
+                      className="mb-2 mr-2"
+                    />
+                  )}
+                </Media>
+                <Media body>
+                  {book.title && (
+                    <h2>
+                      <Link to={`/book/${book.id}`}>{book.title}</Link>
+                    </h2>
+                  )}
+
+                  <label htmlFor="shelf">Change shelf:</label>
+                  <select
+                    id="shelf"
+                    name="shelf"
+                    className="form-control"
+                    value={book.shelf}
+                    onChange={(e) =>
+                      setShelfChangeUri(`/${book.id}/${e.target.value}`)
+                    }
+                  >
+                    <option value="wantToRead">Want To Read</option>
+                    <option value="currentlyReading">Currently Reading</option>
+                    <option value="read">Read</option>
+                    <option value="none">None</option>
+                  </select>
+                </Media>
+              </Media>
             </div>
           );
         })}
@@ -135,27 +179,49 @@ export const Bookshelf = ({ history }) => {
           const id = `book-${book.id}`;
           return (
             <div key={id}>
-              <Link to={`/book/${book.id}`}>{book.title}</Link>
-              {book.imageLinks && (
-                <Link to={`/book/${book.id}`}>
-                  <img src={book.imageLinks.thumbnail} alt={book.title} />
-                </Link>
-              )}
-              <label htmlFor="shelf">Change shelf:</label>
-              <select
-                id="shelf"
-                name="shelf"
-                className="form-control"
-                value={book.shelf}
-                onChange={(e) =>
-                  setShelfChangeUri(`/${book.id}/${e.target.value}`)
-                }
-              >
-                <option value="wantToRead">Want To Read</option>
-                <option value="currentlyReading">Currently Reading</option>
-                <option value="read">Read</option>
-                <option value="none">Remove</option>
-              </select>
+              <Media>
+                <Media left href={`/book/${book.id}`}>
+                  {book.imageLinks && (
+                    <Media
+                      object
+                      src={book.imageLinks.thumbnail}
+                      alt="the thumbnail didn't render"
+                      className="mb-2 mr-2"
+                    />
+                  )}
+                  {!book.imageLinks && (
+                    <Media
+                      object
+                      src="https://via.placeholder.com/128x168"
+                      alt="the thumbnail didn't render"
+                      className="mb-2 mr-2"
+                    />
+                  )}
+                </Media>
+                <Media body>
+                  {book.title && (
+                    <h2>
+                      <Link to={`/book/${book.id}`}>{book.title}</Link>
+                    </h2>
+                  )}
+
+                  <label htmlFor="shelf">Change shelf:</label>
+                  <select
+                    id="shelf"
+                    name="shelf"
+                    className="form-control"
+                    value={book.shelf}
+                    onChange={(e) =>
+                      setShelfChangeUri(`/${book.id}/${e.target.value}`)
+                    }
+                  >
+                    <option value="wantToRead">Want To Read</option>
+                    <option value="currentlyReading">Currently Reading</option>
+                    <option value="read">Read</option>
+                    <option value="none">None</option>
+                  </select>
+                </Media>
+              </Media>
             </div>
           );
         })}
