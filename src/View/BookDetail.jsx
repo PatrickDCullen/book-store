@@ -18,8 +18,6 @@ export const BookDetail = ({ history }) => {
      * The API should not give you back any book details unless you are logged in.
      * To prove that you are logged in, you must pass the token (UUID) in the API.
      */
-    // you have to get the book id from somewhere... you have to store it first.
-    // Seems like a good job for context
     axios
       .get(`http://localhost:7000${bookIdUri}`, {
         params: {
@@ -40,10 +38,7 @@ export const BookDetail = ({ history }) => {
      */
     if (shelfChangeUri !== "")
       axios
-        // for some reason this request didn't work with params like above get
-        // request so I just tacked query string onto the uri
         .put(`http://localhost:7000/bookshelf${shelfChangeUri}?id=${uuid}`)
-        // .then((resp) => resp.data.books && setBook(resp.data.book))
         .catch((err) => {
           console.error(err);
           setErrorMessage("Oh no! An unexpected error occurred.");
@@ -67,8 +62,6 @@ export const BookDetail = ({ history }) => {
           Logout
         </button>
       </div>
-      {/* Checking if books contains anything- we don't want to get an error for trying 
-      to render something that doesn't exist from the initialized empty books array*/}
       {book && (
         <Fragment>
           <h2 className="mb-2">{book.title}</h2>
@@ -78,7 +71,7 @@ export const BookDetail = ({ history }) => {
                 <Media
                   object
                   src={book.imageLinks.thumbnail}
-                  alt="the thumbnail didn't render"
+                  alt="thumbnail image of book's cover"
                   className="mb-2 mr-2"
                 />
               )}
@@ -86,7 +79,7 @@ export const BookDetail = ({ history }) => {
                 <Media
                   object
                   src="https://via.placeholder.com/128x168"
-                  alt="the thumbnail didn't render"
+                  alt="thumbnail image of book's cover"
                   className="mb-2 mr-2"
                 />
               )}

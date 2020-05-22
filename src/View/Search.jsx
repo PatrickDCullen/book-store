@@ -21,8 +21,6 @@ export const Search = ({ history }) => {
      * The API should not give you back any books unless you are logged in.
      * To prove that you are logged in, you must pass the token (UUID) in the API.
      */
-    // Put in the conditional because otherwise it throws an error on initial
-    // page load because you are rendering the request to a uri that doesn't exist.
     if (searchTerm !== "") {
       axios
         .get(
@@ -88,7 +86,7 @@ export const Search = ({ history }) => {
                   <Media
                     object
                     src={book.imageLinks.thumbnail}
-                    alt="the thumbnail didn't render"
+                    alt="thumbnail image of book's cover"
                     className="mb-2 mr-2"
                   />
                 )}
@@ -96,7 +94,7 @@ export const Search = ({ history }) => {
                   <Media
                     object
                     src="https://via.placeholder.com/128x168"
-                    alt="the thumbnail didn't render"
+                    alt="thumbnail image of book's cover"
                     className="mb-2 mr-2"
                   />
                 )}

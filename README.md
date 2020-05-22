@@ -7,6 +7,10 @@ save books to one of three different shelves, as well as manage their bookshelve
 The purpose of this project is to showcase proficiency in React, specifically
 Context API for global state management, AJAX, routing, and authentication.
 
+## Demo
+
+![Brief Demo](book-store-demo.gif)
+
 ## Getting Started
 
 Follow these steps in your terminal to get this project running on your machine in development mode:

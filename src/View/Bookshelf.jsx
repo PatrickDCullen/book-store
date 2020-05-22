@@ -32,14 +32,8 @@ export const Bookshelf = ({ history }) => {
   }, []);
 
   useEffect(() => {
-    /**
-     * The API should not give you back any books unless you are logged in.
-     * To prove that you are logged in, you must pass the token (UUID) in the API.
-     */
     if (shelfChangeUri !== "")
       axios
-        // for some reason this request didn't work with params like above get
-        // request so I just tacked query string onto the uri
         .put(`http://localhost:7000/bookshelf${shelfChangeUri}?id=${uuid}`)
         .then((resp) => resp.data.books && setBooks(resp.data.books))
         .catch((err) => {
@@ -49,7 +43,7 @@ export const Bookshelf = ({ history }) => {
   }, [shelfChangeUri]);
 
   return (
-    <div className="container mt-2 mb-5">
+    <div className="container mb-5 pt-2">
       <div className="d-flex justify-content-between mb-2">
         <Nav>
           <NavLink disabled href="/bookshelf">
@@ -68,8 +62,6 @@ export const Bookshelf = ({ history }) => {
         </button>
       </div>
       <h2>Want To Read</h2>
-      {/* Checking if books contains anything- we don't want to get an error for trying 
-      to render something that doesn't exist from the initialized empty books array*/}
       {books.wantToRead &&
         books.wantToRead.map((book) => {
           const id = `book-${book.id}`;
@@ -81,7 +73,7 @@ export const Bookshelf = ({ history }) => {
                     <Media
                       object
                       src={book.imageLinks.thumbnail}
-                      alt="the thumbnail didn't render"
+                      alt="thumbnail image of book's cover"
                       className="mb-2 mr-2"
                     />
                   )}
@@ -89,7 +81,7 @@ export const Bookshelf = ({ history }) => {
                     <Media
                       object
                       src="https://via.placeholder.com/128x168"
-                      alt="the thumbnail didn't render"
+                      alt="thumbnail image of book's cover"
                       className="mb-2 mr-2"
                     />
                   )}
@@ -133,7 +125,7 @@ export const Bookshelf = ({ history }) => {
                     <Media
                       object
                       src={book.imageLinks.thumbnail}
-                      alt="the thumbnail didn't render"
+                      alt="thumbnail image of book's cover"
                       className="mb-2 mr-2"
                     />
                   )}
@@ -141,7 +133,7 @@ export const Bookshelf = ({ history }) => {
                     <Media
                       object
                       src="https://via.placeholder.com/128x168"
-                      alt="the thumbnail didn't render"
+                      alt="thumbnail image of book's cover"
                       className="mb-2 mr-2"
                     />
                   )}
@@ -185,7 +177,7 @@ export const Bookshelf = ({ history }) => {
                     <Media
                       object
                       src={book.imageLinks.thumbnail}
-                      alt="the thumbnail didn't render"
+                      alt="thumbnail image of book's cover"
                       className="mb-2 mr-2"
                     />
                   )}
@@ -193,7 +185,7 @@ export const Bookshelf = ({ history }) => {
                     <Media
                       object
                       src="https://via.placeholder.com/128x168"
-                      alt="the thumbnail didn't render"
+                      alt="thumbnail image of book's cover"
                       className="mb-2 mr-2"
                     />
                   )}
